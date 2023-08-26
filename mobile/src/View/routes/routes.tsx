@@ -16,10 +16,6 @@ function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor="#fff"
-      inactiveColor="#98E8B3"
-      shifting={true}
-      barStyle={{ backgroundColor: "#2BB459" }}
     >
       <Tab.Screen
         name="Settings"
