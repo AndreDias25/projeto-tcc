@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  StyleSheet,
 } from "react-native";
 import CheckBox from "react-native-checkbox";
 import MaterialIcons from "@expo/vector-icons/build/MaterialIcons";
@@ -17,11 +16,18 @@ export function SignUpScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [isNameFocused, setIsNameFocused] = useState(false);
+  const [isEmailFocused, setIsEmailFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] =
+    useState(false);
+
   const [isChecked, setIsChecked] = useState(false);
 
   const toggleCheckBox = () => {
     setIsChecked(!isChecked);
   };
+
 
   const handleSignUp = () => {
     console.log("Name:", name);
@@ -31,208 +37,125 @@ export function SignUpScreen({ navigation }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.content}>
-
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <View className="flex-1 items-center justify-start  bg-[#2BB459]">
         {/* Campos de Cadastro */}
-        <View style={styles.imageContainer}>
+        <View className="w-full h-[30%] items-center bg-[#fff] relative">
           <Image
             source={require("../../../assets/illustrations/sign-up.png")}
-            style={styles.image}
+            className="w-[230px] h-[225px] absolute top-[15%] bottom-0 animate-pulse"
           />
         </View>
 
-        <Text style={styles.headerText}>
-          {name || email || password || confirmPassword
+        <Text className="text-[#f1f1f1] font-bold text-2xl mt-[15%]">
+          {isNameFocused ||
+          isEmailFocused ||
+          isPasswordFocused ||
+          isConfirmPasswordFocused
             ? ""
             : "Cadastre-se"}
         </Text>
 
-        <View style={styles.inputContainer}>
+        <View className="flex-row w-10/12 items-center border-white border rounded-3xl mt-[5%] mb-4 px-3">
           <MaterialIcons name="person-outline" size={20} color="#fff" />
           <TextInput
-            style={styles.input}
+            className="flex-1 h-9 pl-2 text-black"
             placeholder="Nome"
             placeholderTextColor="#fff"
             value={name}
             onChangeText={setName}
+            onFocus={() => setIsNameFocused(true)}
+            onBlur={() => setIsNameFocused(false)}
           />
         </View>
 
-        <View style={styles.inputContainer}>
+        <View className="flex-row w-10/12 items-center border-white border rounded-3xl mb-4 px-3">
           <MaterialIcons name="mail-outline" size={20} color="#fff" />
           <TextInput
-            style={styles.input}
+            className="flex-1 h-9 pl-2 text-black"
             placeholder="Email"
             placeholderTextColor="#fff"
             value={email}
             onChangeText={setEmail}
+            onFocus={() => setIsEmailFocused(true)}
+            onBlur={() => setIsEmailFocused(false)}
           />
         </View>
 
-        <View style={styles.inputContainer}>
+        <View className="flex-row w-10/12 items-center border-white border rounded-3xl mb-4 px-3">
           <MaterialIcons name="lock-outline" size={20} color="#fff" />
           <TextInput
-            style={styles.input}
+            className="flex-1 h-9 pl-2 text-black"
             placeholder="Senha"
             placeholderTextColor="#fff"
             secureTextEntry={true}
             value={password}
             onChangeText={setPassword}
+            onFocus={() => setIsPasswordFocused(true)}
+            onBlur={() => setIsPasswordFocused(false)}
           />
         </View>
 
-        <View style={styles.inputContainer}>
+        <View className="flex-row w-10/12 items-center border-white border rounded-3xl mb-4 px-3">
           <MaterialIcons name="lock-outline" size={20} color="#fff" />
           <TextInput
-            style={styles.input}
+            className="flex-1 h-9 pl-2 text-black"
             placeholder="Repetir Senha"
             placeholderTextColor="#fff"
             secureTextEntry={true}
             value={confirmPassword}
             onChangeText={setConfirmPassword}
+            onFocus={() => setIsConfirmPasswordFocused(true)}
+            onBlur={() => setIsConfirmPasswordFocused(false)}
           />
         </View>
 
         {/* CHECKBOX */}
         <TouchableOpacity
-          style={styles.checkboxContainer}
+          className="flex-row w-10/12 items-center mb-2 pl-3"
           onPress={toggleCheckBox}
         >
           <View
-            style={[
-              styles.checkbox,
-              { backgroundColor: isChecked ? "#fff" : "transparent" },
-            ]}
+            style={{
+              width: 20,
+              height: 20,
+              borderWidth: 2,
+              borderColor: "#fff",
+              backgroundColor: isChecked ? "#fff" : "transparent",
+              marginRight: 8,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             {isChecked && (
               <MaterialIcons name="check" size={16} color="#2BB459" />
             )}
           </View>
-          <Text style={styles.checkboxText}>
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 14 }}>
             Eu li e concordo com os termos
           </Text>
         </TouchableOpacity>
 
         {/* BOTÃO DE CADASTRO */}
         <TouchableOpacity
-          style={styles.signupButton}
+          className="w-10/12 h-10 items-center justify-center bg-[#fff] rounded-3xl mb-2 mt-3"
           onPress={handleSignUp}
         >
-          <Text style={styles.signupButtonText}>Cadastrar</Text>
+          <Text className="text-[#479962] font-bold text-lg">Cadastrar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={styles.loginRedirect}
+          className="items-center mt-4"
         >
-          <View style={styles.loginRedirectTextContainer}>
-            <Text style={styles.loginRedirectText}>Já tem uma conta?{" "}</Text>
-            <Text style={styles.loginRedirectBoldText}>Faça login</Text>
+          <View className="flex-row">
+            <Text className="text-[#fff] font-semibold text-xs">
+              Já tem uma conta?{" "}
+            </Text>
+            <Text className="text-[#fff] font-bold text-xs">Faça login</Text>
           </View>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: "#2BB459",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  content: {
-    flex: 1,
-    alignItems: "center",
-  },
-  imageContainer: {
-    width: "100%",
-    height: "30%",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    position: "relative",
-  },
-  image: {
-    width: 230,
-    height: 225,
-    position: "absolute",
-    top: "15%",
-  },
-  headerText: {
-    color: "#f1f1f1",
-    fontWeight: "bold",
-    fontSize: 20,
-    marginTop: "15%",
-  },
-  inputContainer: {
-    flexDirection: "row",
-    width: "90%",
-    alignItems: "center",
-    borderColor: "#fff",
-    borderWidth: 1,
-    borderRadius: 30,
-    marginVertical: 4,
-    paddingHorizontal: 10,
-  },
-  input: {
-    flex: 1,
-    height: 40,
-    paddingLeft: 10,
-    color: "black",
-  },
-  checkboxContainer: {
-    flexDirection: "row",
-    width: "90%",
-    alignItems: "center",
-    marginBottom: 2,
-    paddingLeft: 15,
-  },
-  checkbox: {
-    width: 20,
-    height: 20,
-    borderWidth: 2,
-    borderColor: "#fff",
-    marginRight: 8,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  checkboxText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 14,
-  },
-  signupButton: {
-    width: "90%",
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-    borderRadius: 30,
-    marginBottom: 2,
-    marginTop: 10,
-  },
-  signupButtonText: {
-    color: "#479962",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  loginRedirect: {
-    alignItems: "center",
-    marginTop: 4,
-  },
-  loginRedirectTextContainer: {
-    flexDirection: "row",
-  },
-  loginRedirectText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 12,
-  },
-  loginRedirectBoldText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 12,
-  },
-});

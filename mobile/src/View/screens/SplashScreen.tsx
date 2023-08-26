@@ -3,24 +3,10 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 
 const SplashScreen = () => {
   return (
-    <View style={styles.container}>
-      <Image source={require('../../../assets/splash.png')} style={styles.image} />
+    <View className='flex-1 bg-green-500 items-center justify-center'>
+      <Image source={require('../../../assets/splash.png')} className='w-2/3 h-1/6 animate-pulse'/>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#34D399',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: '66.666%',
-    height: '16.666%',
-    resizeMode: 'contain',
-  },
-});
 
 export default SplashScreen;
