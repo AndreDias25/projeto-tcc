@@ -149,10 +149,10 @@ export function SignUpScreen({ navigation }) {
           className="items-center mt-4"
         >
           <View className="flex-row">
-            <Text className="text-[#fff] font-semibold text-xs">
+            <Text className="text-[#fff] font-semibold text-sm">
               Já tem uma conta?{" "}
             </Text>
-            <Text className="text-[#fff] font-bold text-xs">Faça login</Text>
+            <Text className="text-[#fff] font-bold text-sm">Faça login</Text>
           </View>
         </TouchableOpacity>
       </View>

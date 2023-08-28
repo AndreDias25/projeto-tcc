@@ -1,34 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Icon from 'react-native-vector-icons/Fontisto';
 
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import SplashScreen from "../screens/SplashScreen";
+import { SettingsScreen } from "../screens/SettingsScreen";
+import { HomeScreen } from "../screens/HomeScreen";
+import { ProfileScreen } from "../screens/ProfileScreen";
+import { LoginScreen } from "../screens/LoginScreen";
+import { SignUpScreen } from "../screens/SignUpScreen";
+import { ForgotPassScreen } from "../screens/ForgotPass/ForgotPassScreen";
+import { RecoverPassScreen } from "../screens/ForgotPass/RecoverPassScreen";
+import { VaccineScreen } from "../screens/VaccineScreen";
+import { RemedyScreen } from "../screens/RemedyScreen";
 
-import SplashScreen from '../screens/SplashScreen';
-import { HomeScreen } from '../screens/HomeScreen';
-import { LoginScreen } from '../screens/LoginScreen';
-import { ProfileScreen } from '../screens/ProfileScreen';
-import { SettingsScreen } from '../screens/SettingsScreen';
-import { SignUpScreen } from '../screens/SignUpScreen';
-
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Início"
+      screenOptions={({ route }) => ({
+        tabBarActiveTintColor: "#2BB459",
+        tabBarInactiveTintColor: "gray",
+        tabBarIcon: ({ color, size }) => {
+          let iconName;
+
+          if (route.name === "Início") {
+            iconName = "home";
+          } else if (route.name === "Remédios") {
+            iconName = "pills";
+          } else if (route.name === "Vacinas") {
+            iconName = "calendar";
+            /* injection-syringe */
+          } else if (route.name === "Perfil") {
+            iconName = "person";
+          }
+
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
     >
-      <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
-      />
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-      />
+      <Tab.Screen name="Início" component={HomeScreen} />
+      <Tab.Screen name="Remédios" component={RemedyScreen} />
+      <Tab.Screen name="Vacinas" component={VaccineScreen} />
+      <Tab.Screen name="Perfil" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
@@ -66,6 +82,16 @@ export default function Routes() {
           <Stack.Screen
             name="SignUp"
             component={SignUpScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgotPass"
+            component={ForgotPassScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RecoverPass"
+            component={RecoverPassScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen

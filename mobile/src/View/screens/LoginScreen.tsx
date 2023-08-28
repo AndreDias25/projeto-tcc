@@ -10,7 +10,7 @@ import {
 import MaterialIcons from "@expo/vector-icons/build/MaterialIcons";
 
 export function LoginScreen({ navigation }) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -19,14 +19,13 @@ export function LoginScreen({ navigation }) {
   };
 
   const handleLogin = () => {
-    console.log("Username:", username);
+    console.log("email:", email);
     console.log("Password:", password);
   };
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View className="flex-1 items-center justify-start">
-
         {/* Container com a imagem */}
         <View className="w-full h-[30%] items-center bg-[#2BB459] relative">
           <Text className="text-[#f1f1f1] font-bold text-2xl mt-10">
@@ -38,22 +37,22 @@ export function LoginScreen({ navigation }) {
           />
         </View>
 
-        <View className="flex-row w-10/12 items-center border-green-500 border rounded-3xl mt-[40%] mb-4 px-3">
-          <MaterialIcons name="person-outline" size={20} color="#2BB459" />
+        <View className="flex-row w-10/12 items-center bg-white border-[#9E9EA0] border rounded-3xl mt-[40%] mb-4 px-3">
+          <MaterialIcons name="person-outline" size={20} color="#9E9EA0" />
           <TextInput
-            className="flex-1 h-12 pl-2 text-black"
-            placeholder="Nome de usuário"
-            placeholderTextColor="#479962"
-            value={username}
-            onChangeText={setUsername}
+            className="flex-1 h-12 pl-2 font-medium text-black bg-white rounded-3xl"
+            placeholder="E-mail"
+            placeholderTextColor="#9E9EA0"
+            value={email}
+            onChangeText={setEmail}
           />
         </View>
-        <View className="flex-row w-10/12 items-center border-green-500 border rounded-3xl mb-4 px-3">
-          <MaterialIcons name="lock-outline" size={20} color="#2BB459" />
+        <View className="flex-row w-10/12 items-center bg-white border-[#9E9EA0] border rounded-3xl mb-4 px-3">
+          <MaterialIcons name="lock-outline" size={20} color="#9E9EA0" />
           <TextInput
-            className="flex-1 h-12 pl-2 text-black"
+            className="flex-1 h-12 pl-2 font-medium text-black bg-white rounded-3xl"
             placeholder="Senha"
-            placeholderTextColor="#479962"
+            placeholderTextColor="#9E9EA0"
             secureTextEntry={!showPassword}
             value={password}
             onChangeText={setPassword}
@@ -62,7 +61,7 @@ export function LoginScreen({ navigation }) {
             <MaterialIcons
               name={showPassword ? "visibility-off" : "visibility"}
               size={20}
-              color="#2BB459"
+              color="#9E9EA0"
             />
           </TouchableOpacity>
         </View>
@@ -72,7 +71,7 @@ export function LoginScreen({ navigation }) {
           className="w-9/12 items-end"
           onPress={() => console.log("Esqueci minha senha")}
         >
-          <Text className="text-[#479962] font-semibold text-xs mb-6">
+          <Text className="text-[#9E9EA0] font-semibold text-base mb-6">
             Esqueceu a senha
           </Text>
         </TouchableOpacity>
@@ -91,10 +90,10 @@ export function LoginScreen({ navigation }) {
           className="items-center mt-4"
         >
           <View className="flex-row">
-            <Text className="text-[#479962] font-semibold text-xs mr-2">
+            <Text className="text-[#9E9EA0] font-semibold text-sm mr-2">
               Não tem uma conta?
             </Text>
-            <Text className="text-[#479962] font-bold text-xs">
+            <Text className="text-[#479962] font-bold text-sm">
               Cadastre-se
             </Text>
           </View>
