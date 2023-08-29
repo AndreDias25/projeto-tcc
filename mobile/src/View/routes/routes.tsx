@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Icon from 'react-native-vector-icons/Fontisto';
+import Icon from "react-native-vector-icons/Fontisto";
 
 import SplashScreen from "../screens/SplashScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
@@ -41,10 +41,26 @@ function MyTabs() {
         },
       })}
     >
-      <Tab.Screen name="Início" component={HomeScreen} />
-      <Tab.Screen name="Remédios" component={RemedyScreen} />
-      <Tab.Screen name="Vacinas" component={VaccineScreen} />
-      <Tab.Screen name="Perfil" component={ProfileScreen} />
+      <Tab.Screen
+        name="Início"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Remédios"
+        component={RemedyScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Vacinas"
+        component={VaccineScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Perfil"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 }
