@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,19 +8,45 @@ import {
   ScrollView,
 } from "react-native";
 import MaterialIcons from "@expo/vector-icons/build/MaterialIcons";
+import UsuarioController from "../../Controller/UsuarioController";
+
+let usuarioSessao;
+export { usuarioSessao };
 
 export function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [usuarioId, setUsuarioId] = useState<number>(0);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = () => {
-    console.log("email:", email);
-    console.log("Password:", password);
+  useEffect(() => {
+    console.log("Valor atualizado de usuarioId:", usuarioId);
+    
+    if (usuarioId) {
+      // Navegar apenas quando o usuarioId estiver disponível
+      console.log(usuarioId)
+      usuarioSessao = usuarioId;
+      navigation.navigate("Tabs");
+    }
+  }, [usuarioId, navigation]);
+
+  const handleLogin = async () => {
+    const userId = await UsuarioController.loginUsuario(email, password);
+    if (userId !== undefined && userId !== null) {
+      // Login bem-sucedido, navega para a tela "Tabs" (Home)
+      console.log("valor do userId", userId)
+      setUsuarioId(userId)
+      //console.log(usuarioId)
+      // navigation.navigate("Tabs", { usuarioId: userId});
+    } else {
+      // Login falhou, exiba uma mensagem de erro ou impeça a navegação
+      // Exemplo de exibição de mensagem de erro:
+      alert("Credenciais inválidas. Por favor, tente novamente.");
+    }
   };
 
   return (
@@ -80,7 +106,7 @@ export function LoginScreen({ navigation }) {
         <TouchableOpacity
           className="w-10/12 h-10 items-center justify-center bg-[#2BB459] rounded-3xl mb-2 mt-3"
           /* onPress={handleLogin} */
-          onPress={() => navigation.navigate("Tabs")}
+          onPress={(handleLogin)}
         >
           <Text className="text-white font-bold text-lg">Entrar</Text>
         </TouchableOpacity>
